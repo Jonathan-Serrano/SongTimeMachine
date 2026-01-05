@@ -2,66 +2,56 @@ import './App.css'
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
+import songs from '../data/result.json';
 
-const columns: GridColDef<(typeof rows)[number]>[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'firstName',
-    headerName: 'First name',
-    width: 150,
-    editable: true,
+const columns: GridColDef<(typeof songs)[number]>[] = [
+  { field: 'master_metadata_track_name', 
+    headerName: 'Track Name', 
+    width: 90 
   },
   {
-    field: 'lastName',
-    headerName: 'Last name',
+    field: 'master_metadata_album_artist_name',
+    headerName: 'Artist',
     width: 150,
-    editable: true,
   },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
+    field: 'count',
+    headerName: 'Count',
+    width: 150,
+  },
+  {
+    field: 'first_played',
+    headerName: 'First Played',
+    // type: 'dateTime',
     width: 110,
-    editable: true,
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (_, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+    field: 'last_played',
+    headerName: 'Last Played',
+    // type: 'dateTime',
+    width: 110,
   },
 ];
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+// const rows = songs
 
 
 function App() {
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: '80%' }}>
       <DataGrid
-        rows={rows}
+        rows={songs}
         columns={columns}
+        getRowId={(row) => row.spotify_track_uri}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 100,
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5, 10]}
         checkboxSelection
         disableRowSelectionOnClick
       />
