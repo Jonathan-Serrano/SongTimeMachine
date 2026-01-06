@@ -42,7 +42,7 @@ const columns: GridColDef<(typeof songs)[number]>[] = [
 function App() {
 
   return (
-    <Box sx={{ height: '70vh', width: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mt: '5vh', maxWidth: "1210px"}}>
+    <Box sx={{ height: '70vh', width: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mt: '5vh', maxWidth: "1220px"}}>
       <DataGrid 
         rows={songs}
         columns={columns}
